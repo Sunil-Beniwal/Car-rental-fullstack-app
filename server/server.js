@@ -13,7 +13,10 @@ const app = express() // app is our main server object created using Express
 await connectDB();
 
 // Middleware
-app.use(cors()); // Enables CORS (Cross-Origin Resource Sharing). Allows frontend (running on different port/domain) to send requests to this backend and have access to backend resources.
+app.use(cors({
+    origin: ["http://localhost:5173", "https://car-rental-three-theta.vercel.app/"],// Specifies allowed origins for CORS. Only requests from these origins will be accepted by the server. This is important for security to prevent unauthorized domains from accessing our backend resources.
+    credentials: true
+})); // Enables CORS (Cross-Origin Resource Sharing). Allows frontend (running on different port/domain) to send requests to this backend and have access to backend resources.
 app.use(express.json());
 
 app.get('/', (req,res)=>res.send("server is running")) //  test route to check if server is running. Used for testing backend status in browser or Postman
